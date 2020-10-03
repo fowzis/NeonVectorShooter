@@ -1,6 +1,14 @@
 // Pixel shader extracts the brighter areas of an image.
 // This is the first step in applying a bloom postprocess.
 
+#if OPENGL
+    #define VS_SHADERMODEL vs_3_0
+    #define PS_SHADERMODEL ps_3_0
+#else
+    #define VS_SHADERMODEL vs_5_0
+    #define PS_SHADERMODEL ps_5_0
+#endif
+
 sampler TextureSampler : register(s0);
 
 float BloomThreshold;
@@ -20,6 +28,7 @@ technique BloomExtract
 {
     pass Pass1
     {
-        PixelShader = compile ps_2_0 PixelShaderFunction();
+        //PixelShader = compile ps_2_0 PixelShaderFunction();
+        PixelShader = compile PS_SHADERMODEL PixelShaderFunction();
     }
 }

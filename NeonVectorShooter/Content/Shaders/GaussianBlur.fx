@@ -2,6 +2,14 @@
 // This is used twice by the bloom postprocess, first to
 // blur horizontally, and then again to blur vertically.
 
+#if OPENGL
+    #define VS_SHADERMODEL vs_3_0
+    #define PS_SHADERMODEL ps_3_0
+#else
+    #define VS_SHADERMODEL vs_5_0
+    #define PS_SHADERMODEL ps_5_0
+#endif
+
 sampler TextureSampler : register(s0);
 
 #define SAMPLE_COUNT 15
@@ -28,6 +36,7 @@ technique GaussianBlur
 {
     pass Pass1
     {
-        PixelShader = compile ps_2_0 PixelShaderFunction();
+        //PixelShader = compile ps_2_0 PixelShaderFunction();
+        PixelShader = compile PS_SHADERMODEL PixelShaderFunction();
     }
 }

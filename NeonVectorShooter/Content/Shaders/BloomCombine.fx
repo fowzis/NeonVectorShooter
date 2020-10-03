@@ -1,6 +1,13 @@
 // Pixel shader combines the bloom image with the original
 // scene, using tweakable intensity levels and saturation.
 // This is the final step in applying a bloom postprocess.
+#if OPENGL
+    #define VS_SHADERMODEL vs_3_0
+    #define PS_SHADERMODEL ps_3_0
+#else
+    #define VS_SHADERMODEL vs_5_0
+    #define PS_SHADERMODEL ps_5_0
+#endif
 
 sampler BloomSampler : register(s0);
 sampler BaseSampler : register(s1);
@@ -17,7 +24,7 @@ float4 AdjustSaturation(float4 color, float saturation)
 {
     // The constants 0.3, 0.59, and 0.11 are chosen because the
     // human eye is more sensitive to green light, and less to blue.
-    float grey = dot(color, float3(0.3, 0.59, 0.11));
+    float grey = dot(color, float4(0.3, 0.59, 0.11, 0.0));
 
     return lerp(grey, color, saturation);
 }
@@ -46,6 +53,7 @@ technique BloomCombine
 {
     pass Pass1
     {
-        PixelShader = compile ps_2_0 PixelShaderFunction();
+        //PixelShader = compile ps_2_0 PixelShaderFunction();
+        PixelShader = compile PS_SHADERMODEL PixelShaderFunction();
     }
 }
