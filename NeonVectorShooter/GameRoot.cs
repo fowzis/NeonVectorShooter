@@ -43,8 +43,9 @@ namespace ShapeBlaster
 			bloom = new BloomComponent(this);
 			Components.Add(bloom);
 			//bloom.Settings = new BloomSettings(null, 0.25f, 4, 2, 1, 1.5f, 1);
-			//bloom.Settings = new BloomSettings("Custom", 0.01f, 0.02f, 1.5f, 1f, 1.5f, 1f);
-			bloom.Settings = BloomSettings.PresetSettings[6];
+			//                                   Name    Thresh   Blur    Bloom    Base   BloomSat   BaseSat
+			//bloom.Settings = new BloomSettings("Custom",  0.25f,   0.75f,   3f,    1f,      1f,     0.5f);
+			bloom.Settings = BloomSettings.PresetSettings[7];
 		}
 
 		protected override void Initialize()
