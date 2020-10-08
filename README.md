@@ -1,4 +1,4 @@
-# NeonVectorShooter
+# NeonVectorShooter_DX
 NeonVectorShooter adapted to MonoGame 3.8 using an OpenGL MonoGame Project Template
 
 #Properties
