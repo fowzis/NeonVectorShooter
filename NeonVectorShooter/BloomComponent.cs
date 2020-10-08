@@ -172,8 +172,8 @@ namespace BloomPostprocess
             parameters["BloomSaturation"].SetValue(Settings.BloomSaturation);
             parameters["BaseSaturation"].SetValue(Settings.BaseSaturation);
 
-            //GraphicsDevice.Textures[1] = sceneRenderTarget;
-            bloomCombineEffect.Parameters["BaseTexture"].SetValue(sceneRenderTarget);
+            GraphicsDevice.Textures[1] = sceneRenderTarget;
+            //bloomCombineEffect.Parameters["BaseTexture"].SetValue(sceneRenderTarget);
 
             Viewport viewport = GraphicsDevice.Viewport;
 

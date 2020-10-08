@@ -10,25 +10,15 @@
     #define PS_SHADERMODEL ps_4_0_level_9_1
 #endif
 
-//sampler2D BloomSampler = sampler_state
-//{
-//    Texture = (SourceTexture);
-//};
-//
-//sampler2D OtherSampler = sampler_state
-//{
-//    Texture = (OtherTexture);
-//};
-
 sampler2D BloomSampler : register(s0);
-//sampler BaseSampler : register(s1);
-sampler2D BaseSampler : register(s1)
-{
-    Texture = (BaseTexture);
-    //Filter = Linear;
-    //AddressU = clamp;
-    //AddressV = clamp;
-};
+sampler BaseSampler : register(s1);
+//sampler2D BaseSampler : register(s1)
+//{
+//    Texture = (BaseTexture);
+//    Filter = Linear;
+//    AddressU = clamp;
+//    AddressV = clamp;
+//};
 
 float BloomIntensity;
 float BaseIntensity;
@@ -48,8 +38,9 @@ float4 AdjustSaturation(float4 color, float saturation)
     return lerp(grey, color, saturation);
 }
 
-
-float4 PixelShaderFunction(float2 texCoord : TEXCOORD) : COLOR
+// This function signature does not work properly in DirectX, while work good with Open GL
+//float4 PixelShaderFunction(float2 texCoord : TEXCOORD0) : COLOR0
+float4 PixelShaderFunction(float4 position : POSITION0, float4 c : COLOR0, float2 texCoord : TEXCOORD0) : COLOR
 {
     // Look up the bloom and original base image colors.
     float4 bloom = tex2D(BloomSampler, texCoord);

@@ -17,18 +17,20 @@ sampler TextureSampler : register(s0);
 float2 SampleOffsets[SAMPLE_COUNT];
 float SampleWeights[SAMPLE_COUNT];
 
+// This function signature does not work properly in DirectX, while work good with Open GL
+//float4 PixelShaderFunction(float2 texCoord : TEXCOORD0) : COLOR0
+float4 PixelShaderFunction(float4 position : POSITION0, float4 c : COLOR0, float2 texCoord : TEXCOORD0) : COLOR
 
-float4 PixelShaderFunction(float2 texCoord : TEXCOORD) : COLOR
 {
-    float4 c = 0;
+    float4 color = 0;
     
     // Combine a number of weighted image filter taps.
     for (int i = 0; i < SAMPLE_COUNT; i++)
     {
-        c += tex2D(TextureSampler, texCoord + SampleOffsets[i]) * SampleWeights[i];
+        color += tex2D(TextureSampler, texCoord + SampleOffsets[i]) * SampleWeights[i];
     }
     
-    return c;
+    return color;
 }
 
 technique GaussianBlur
